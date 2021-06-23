@@ -12,7 +12,11 @@ A reimplementation of the Unix `fortune` program in Nim. Displays randomly selec
 * The algorithm which randomly picks which file will be used is different
 * *nfortune* is (probably) slightly slower than the *fortune-mod* `fortune` command
 
-## Building
+## Installing
+### On NixOS
+If you are using the experimental Nix version with flakes support, you can use *nfortune*'s flake at `github:DeeUnderscore/nfortune`.
+
+### Building locally
 *nfortune* can be built on Linux systems using Nimble. If you've installed Nim the usual way, you should have `nimble` available. Simply obtain the code (such as by cloning the *nfortune* repository), change to its directory, and then, to compile in debug mode:
 
 ```shellsession
