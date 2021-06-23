@@ -225,6 +225,7 @@ proc searchFortunes(pools: seq[FortunePool],
 proc main() =
   simple_parseopt.no_slash()
   simple_parseopt.dash_dash_parameters()
+  simple_parseopt.help_text("Print random quotes")
 
   let options = get_options:
     c:bool = false {. info("show the cookie file the fortune came from") .}
