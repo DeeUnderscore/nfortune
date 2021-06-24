@@ -5,8 +5,8 @@ nfortune
 print random quotes from fortune files
 =============================================
 
-:Date: 2020-06-24
-:Version: 1.0.0
+:Date: 2021-06-24
+:Version: 1.0.1
 :Manual section: 6
 :Manual group: nfortune manual
 
