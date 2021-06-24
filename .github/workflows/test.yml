@@ -1,0 +1,32 @@
+name: "Build and test"
+on:
+  pull_request:
+  push:
+jobs:
+  nim:
+    name: "Build and test with Nim"
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+    - name: Setup Nim
+      uses: jiro4989/setup-nim-action@v1
+    - name: Build
+      run: nimble build -Y
+    - name: Test
+      run: nimble test -Y
+  flake:
+    name: "Build with flake"
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+    - name: Setup Nix (with flakes)
+      uses: cachix/install-nix-action@v13
+      with:
+        install_url: https://nixos-nix-install-tests.cachix.org/serve/i6laym9jw3wg9mw6ncyrk6gjx4l34vvx/install #323e545
+        install_options: '--tarball-url-prefix https://nixos-nix-install-tests.cachix.org/serve'
+        extra_nix_config: |
+          experimental-features = nix-command flakes
+    - name: Build
+      run: nix build
