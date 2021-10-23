@@ -44,7 +44,7 @@ const
 
 
 proc read32(input: streams.Stream): uint32 
-           {.raises: [DatFileParseError, OSError, IOError, Defect].} =
+           {.raises: [DatFileParseError, OSError, IOError].} =
   ## Read a big endian int32 from stream. Consumes 4 bytes from ``input``.
   var buffer: array[4, char]
   if input.readData(addr(buffer), 4) != 4:
@@ -61,7 +61,7 @@ proc toBigEndian(input: uint32): array[4, char] =
   bigEndian32(addr(result), unsafeAddr(input))
 
 proc deserialize*(input: Stream): DatFile 
-                 {.raises: [DatFileParseError, OSError, IOError, Defect].} = 
+                 {.raises: [DatFileParseError, OSError, IOError].} =
   ## Deserialize a dat file in ``input`` into a ``DatFile`` object
 
   result = new DatFile
