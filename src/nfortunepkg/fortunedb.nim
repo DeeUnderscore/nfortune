@@ -14,6 +14,7 @@ import sequtils
 import math
 import os
 import options
+import std/sugar
 
 import fortunefile
 import datfile
@@ -82,10 +83,9 @@ proc getFilteredFromFile(file: FortuneFile,
     # seq of tuples (index, len), where `index` is the index in the unfiltered
     # sequence, and len is the length, filtered to only incude the ones that 
     # pass the filter
-    filteredLengths = (
-      zip(toSeq(countup(0, high(lengths))), lengths)
-      .filter(proc (i: (Natural, Natural)): bool = filterProc(i[1]))
-    )
+    filteredLengths = collect(newSeq):
+      for item in zip(toSeq(countup(0, high(lengths))), lengths):
+        if filterProc(item[1]): item
   
   result = file.getFortune(filteredLengths[nth][0])
 
