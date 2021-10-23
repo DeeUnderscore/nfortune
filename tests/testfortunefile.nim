@@ -60,7 +60,7 @@ suite "processing fortune files without dat files":
       "Second quote.\n" == loadedFile.getFortune(1)
 
   test "try to index a fortune out of bounds":
-    expect IndexError:
+    expect IndexDefect:
       discard loadedFile.getFortune(6)
 
   test "get filtered fortunes":

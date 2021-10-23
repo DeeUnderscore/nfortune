@@ -30,7 +30,7 @@ type
     cRawText: Option[string]  ## cached contents of the file
     cDatFile: DatFile  ## cached datfile, either loaded or generated
     delimiter: char  ## delimiter used to separate quotes
-  FortuneIndexError* = ref object of IndexError
+  FortuneIndexError* = ref object of IndexDefect
     ## Raised on attempts to read a fortune past the end of file. Can happen
     ## with dat file out of sync.
     path*: string  ## Path to file we were trying to read
@@ -130,7 +130,7 @@ proc getFortune*(self: FortuneFile; startOffset, endOffset: int32): string =
     try:
       result = chompFortune(self.cRawText.get()[startOffset..endOffset],
                             self.delimiter)
-    except IndexError as parentExc:
+    except IndexDefect as parentExc:
       raise self.newFortuneIndexError("fortune file index out of range",
                                       parentExc)
 
@@ -160,7 +160,7 @@ proc getFortune*(self: FortuneFile, nth: Natural): string =
 
   let datFile = self.datFile() 
   if nth > high(datFile.offsets) - 1:  # no fortune starts at the last one
-    raise newException(IndexError, "fortune index out of bound")
+    raise newException(IndexDefect, "fortune index out of bound")
 
   # the next offset points to the first byte of the next string, so we subtract 1
   self.getFortune(datFile.offsets[nth], datFile.offsets[nth+1]-1)
