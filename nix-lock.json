@@ -1,0 +1,16 @@
+{
+  "depends": [
+    {
+      "method": "fetchzip",
+      "path": "/nix/store/2bjrk6dx5mxvhy21x9kdrify4f709619-source",
+      "rev": "519b1fcc9f554782953b2fe6cd4615d3ae2c3056",
+      "sha256": "1blzw6x14k0kirv3nzf59a6lr5233vmn9dn16sph6bcpwjvxzqgm",
+      "url": "https://github.com/onelivesleft/simple_parseopt/archive/519b1fcc9f554782953b2fe6cd4615d3ae2c3056.tar.gz",
+      "ref": "v1.1.1^{}",
+      "packages": [
+        "simple_parseopt"
+      ],
+      "srcDir": "src"
+    }
+  ]
+}

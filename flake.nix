@@ -2,60 +2,67 @@
   description = "fortune, but in Nim";
 
   inputs = {
-    utils.url = "github:numtide/flake-utils";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
   };
 
-  outputs = { self, utils, nixpkgs, nimble }:
-  let
-    nfortuneDeriv = ({pkgs}: with pkgs; stdenv.mkDerivation {
-      pname = "nfortune";
-      version = "1.0.2";
+  outputs =
+    { self, nixpkgs }:
+    let
+      eachFlakeSystem = nixpkgs.lib.genAttrs nixpkgs.lib.systems.flakeExposed;
+      nfortuneDeriv = (
+        {
+          lib,
+          buildNimPackage,
+          docutils,
+        }:
+        buildNimPackage {
+          pname = "nfortune";
+          version = "1.0.2";
 
-      src = ./.;
+          src = lib.sources.cleanSource ./.;
 
-      nativeBuildInputs = [ nim just docutils ];
+          lockFile = ./nix-lock.json;
 
-      nimFlags = [
-        "-d:release"
-        "-p:${nimble.packages."${system}".simple_parseopt}/src"
-      ];
+          nativeBuildInputs = [
+            docutils
+          ];
 
-      buildPhase = ''
-        runHook preBuild
-        HOME=$TMPDIR
+          postBuild = ''
+            rst2man doc/nfortune.6.rst > doc/nfortune.6
+          '';
 
-        nim $nimFlags c src/nfortune
-        rst2man doc/nfortune.6.rst > doc/nfortune.6
+          postInstall = ''
+            install -Dt $out/share/man/man6 doc/nfortune.6
+          '';
+        }
+      );
+    in
+    {
+      packages = eachFlakeSystem (
+        system:
+        let
+          pkgs = nixpkgs.legacyPackages.${system};
+        in
+        rec {
+          nfortune = pkgs.callPackage nfortuneDeriv { };
+          default = nfortune;
+        }
+      );
 
-        runHook postBuild
-      '';
-
-      installPhase = ''
-        runHook preInstall
-
-        install -Dt $out/bin src/nfortune
-        install -Dt $out/share/man/man6 doc/nfortune.6
-
-        runHook postInstall
-      '';
-    });
-  in (utils.lib.eachDefaultSystem (system:
-      let
-        pkgs = nixpkgs.legacyPackages."${system}";
-      in rec {
-        packages.nfortune = nfortuneDeriv { inherit pkgs; };
-
-        defaultPackage = packages.nfortune;
-
-        apps.nfortune = utils.lib.mkApp {
-          drv = packages.nfortune;
-          exePath = "/bin/nfortune";
+      apps = eachFlakeSystem (system: rec {
+        nfortune = {
+          type = "app";
+          program = "${self.packages.${system}.nfortune}/bin/nfortune";
         };
-        defaultApp = apps.nfortune;
-      })
-    ) // {
-      overlay = (final: prev: {
-        nfortune = nfortuneDeriv { pkgs = final; };
+        default = nfortune;
       });
+
+      overlays.default = (
+        final: prev: {
+          nfortune = final.callPackage nfortuneDeriv { };
+        }
+      );
+
+      overlay = self.overlays.default;
     };
 }
