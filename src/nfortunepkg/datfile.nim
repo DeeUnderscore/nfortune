@@ -6,7 +6,6 @@
 import streams
 import system
 import endians
-import strformat
 
 type 
   DatFile* = ref object 
