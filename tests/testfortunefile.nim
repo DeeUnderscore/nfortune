@@ -3,7 +3,7 @@
 import unittest
 
 import sequtils
-import re
+import regex
 import sets
 
 import nfortunepkg/fortunefile
@@ -68,7 +68,7 @@ suite "processing fortune files without dat files":
       "Second quote.\n",
       "Third quote!\n\nAnd what a twist, this one has multiple lines, even!\n"])
 
-    let gotSet = toHashSet(toSeq(loadedFile.filteredFortunes(re"quote[!.]")))
+    let gotSet = toHashSet(toSeq(loadedFile.filteredFortunes(re2"quote[!.]")))
 
     check( desiredSet == gotSet )
 
@@ -97,7 +97,7 @@ suite "processing fortune files without dat files":
       "Second quote.\n",
       "Third quote!\n\nAnd what a twist, this one has multiple lines, even!\n"])
 
-    let gotSet = toHashSet(toSeq(loadedFile.filteredFortunes(re"quote[!.]")))
+    let gotSet = toHashSet(toSeq(loadedFile.filteredFortunes(re2"quote[!.]")))
 
     check( desiredSet == gotSet )
 

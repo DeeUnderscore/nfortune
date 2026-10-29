@@ -13,4 +13,5 @@ bin           = @["nfortune"]
 # Dependencies
 
 requires "nim >= 1.2.0",
-         "simple_parseopt >= 1.1.0 & < 2.0.0"
+         "simple_parseopt ^= 1.1.0",
+         "regex ^= 0.27.0"

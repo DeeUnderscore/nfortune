@@ -7,7 +7,8 @@ import options
 import streams
 import strformat
 import sequtils
-import re
+
+import regex
 
 import datfile
 
@@ -194,7 +195,7 @@ iterator fortunes*(self: FortuneFile): string {.closure.} =
     yield chompFortune(rawTextString[l..r-1], self.delimiter)
 
 iterator filteredFortunes*(self: FortuneFile, 
-                           pattern: Regex): string {.closure.} =
+                           pattern: Regex2): string {.closure.} =
   ## return all fortunes which match the ``pattern`` regex
   
   for fortune in self.fortunes():

@@ -2,10 +2,10 @@ import strformat
 import os
 import streams
 import options
-import re
 import strutils
 import sequtils
 
+import regex
 import simple_parseopt
 
 import nfortunepkg/fortunedb
@@ -91,13 +91,13 @@ proc getDatabases(files: openArray[string],
   # by the user. This allows us to subdivide the reminder equally among the
   # remaining files if equalProb is true (at least as long as float precision
   # errors don't ruin it for us).
-  let digitRe = re"(\d{1,3})%"
+  let digitRe = re2"(\d{1,3})%"
   var 
     fallthroughPool: FortunePool = @[]
     percentSet = false
 
   for entry in files:
-    var matches: array[1, string]
+    var matches = RegexMatch2()
 
     # match percentage specifier
     if entry.match(digitRe, matches):
@@ -105,7 +105,7 @@ proc getDatabases(files: openArray[string],
         # we got two percentages in row
         stderr.writeLine(&"Files should follow percentages")
         quit(QuitFailure)
-      let value: Natural = parseInt(matches[0])
+      let value: Natural = parseInt(entry[matches.group(0)])
       percentSet = true
       result[1].add((float) value)
 
@@ -202,10 +202,10 @@ proc searchFortunes(pools: seq[FortunePool],
     
   let regex = try:
     let flags = if caseInsensitive:
-      {reStudy, reIgnoreCase}
+      {regexCaseless}
     else:
-      {reStudy}
-    re(regexString, flags)
+      {}
+    re2(regexString, flags)
   except RegexError as e:
     # regex exception messages can be multiline so we make them start on their
     # own line

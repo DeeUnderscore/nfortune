@@ -1,5 +1,8 @@
 # Changelog
 
+## v1.0.3, unreleased
+* Switch from standard library `re` to the `regex` package, on account of the former being deprecated.
+
 ## v1.0.2, 2021-10-23
 * Ensure nfortune builds with Nim 1.6.0
 
