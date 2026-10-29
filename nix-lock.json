@@ -11,6 +11,54 @@
         "simple_parseopt"
       ],
       "srcDir": "src"
+    },
+    {
+      "method": "fetchzip",
+      "path": "/nix/store/dzsl7qv2lrbyffyfd03p8vc39xhz2ch7-source",
+      "rev": "a0f1df6a6512340df9ababe59f55140c94a2200f",
+      "sha256": "18clc7v14cyw12kfcv70nbsahyf5a64v4ryjc3sjzlhwiz54yah9",
+      "url": "https://github.com/nitely/nim-regex/archive/a0f1df6a6512340df9ababe59f55140c94a2200f.tar.gz",
+      "ref": "v0.27.0",
+      "packages": [
+        "regex"
+      ],
+      "srcDir": "src"
+    },
+    {
+      "method": "fetchzip",
+      "path": "/nix/store/gxdmxzyyhmfyvybmhq6g1b1wgs7iy7an-source",
+      "rev": "b70aac15a3fdc7647997bd6cd10bccd8b2c00e54",
+      "sha256": "00z5z1m14gw266ld7yy3gvnm08d1kgij66cg4h76yllkc1k1xk0s",
+      "url": "https://github.com/nitely/nim-unicodedb/archive/b70aac15a3fdc7647997bd6cd10bccd8b2c00e54.tar.gz",
+      "ref": "v0.14.1",
+      "packages": [
+        "unicodedb"
+      ],
+      "srcDir": "src"
+    },
+    {
+      "method": "fetchzip",
+      "path": "/nix/store/mcqavxdvid3h6r8waisjakgybw241hh5-source",
+      "rev": "f802d012290c32a69a774f2e7ea889546c1132e7",
+      "sha256": "0qi653q19340hnay17s8zm4qy058rl474cpw7mifqaxk9ac2dhi5",
+      "url": "https://github.com/nitely/nim-unicodeplus/archive/f802d012290c32a69a774f2e7ea889546c1132e7.tar.gz",
+      "ref": "v0.14.2",
+      "packages": [
+        "unicodeplus"
+      ],
+      "srcDir": "src"
+    },
+    {
+      "method": "fetchzip",
+      "path": "/nix/store/siqkibrzif67p438wl7kblrv29g11xjh-source",
+      "rev": "2a4e53005f8e23967530e87002007f539c576516",
+      "sha256": "0n8lh21a6d8i19xgzc299n0abq774ak3l73f2hlk8jmqk93w1y0b",
+      "url": "https://github.com/nitely/nim-segmentation/archive/2a4e53005f8e23967530e87002007f539c576516.tar.gz",
+      "ref": "v0.2.0",
+      "packages": [
+        "segmentation"
+      ],
+      "srcDir": "src"
     }
   ]
 }
