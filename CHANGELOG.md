@@ -1,6 +1,6 @@
 # Changelog
 
-## v1.0.3, unreleased
+## v1.0.3, 2026-10-29
 * Switch from standard library `re` to the `regex` package, on account of the former being deprecated.
 
 ## v1.0.2, 2021-10-23

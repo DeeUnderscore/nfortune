@@ -1,6 +1,6 @@
 # Package
 
-version       = "1.0.2"
+version       = "1.0.3"
 author        = "D Anzorge"
 description   = "fortune, but in Nim"
 license       = "ISC"
