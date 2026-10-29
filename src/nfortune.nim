@@ -21,7 +21,7 @@ proc strfile(args: seq[string], delim: char) =
     quit(QuitFailure)
 
   for file in args:
-    if not existsFile(file):
+    if not fileExists(file):
       stderr.writeLine(&"Error: cannot open path: {file}")
       continue
 
@@ -60,7 +60,7 @@ proc getAbsPath(input: string, bases: openArray[string]): Option[string] =
   
   for base in bases:
     let absPath = base / input
-    if existsFile(absPath) or existsDir(absPath):
+    if fileExists(absPath) or dirExists(absPath):
       return some(absPath)
 
   # fall through case
@@ -80,7 +80,7 @@ proc getDatabases(files: openArray[string],
   var dbDir = getEnv("NFORTUNE_DATABASE")
   if dbDir == "": 
     dbDir = DefaultDBDir
-  if not existsDir(dbDir):
+  if not dirExists(dbDir):
     stderr.writeLine(&"Error: Cannot open {dbDir} (set via NFORTUNE_DATABASE)")
     quit(QuitFailure)
 

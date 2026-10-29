@@ -176,12 +176,12 @@ proc fortuneFileFromPath(path: string,
   of amNoDat:
     return newFortuneFile(path, delim)
   of amDatOnly:
-    if existsFile(datFilePath):
+    if fileExists(datFilePath):
       return newFortuneFile(path, datFilePath)
     else:
       return nil
   of amBoth:
-    if existsFile(datFilePath):
+    if fileExists(datFilePath):
       return newFortuneFile(path, datFilePath)
     else:
       return newFortuneFile(path, delim)
@@ -202,7 +202,7 @@ proc poolFromPath*(path: string,
   ## Files which do not meet the filter requirements will be skipped, so the
   ## pool can potentially be empty. Raises IOError if the path is not valid.
   
-  if existsFile(path):
+  if fileExists(path):
     let fortuneFile = fortuneFileFromPath(path, mode, delim)
 
     if fortuneFile != nil:
@@ -210,7 +210,7 @@ proc poolFromPath*(path: string,
     else:
       return @[]
   
-  if existsDir(path):
+  if dirExists(path):
 
     if mode == amDatOnly:
       # iterate through dat files and then find the corresponding fortune files
@@ -220,7 +220,7 @@ proc poolFromPath*(path: string,
           continue
 
         let fortuneFilePath = file.changeFileExt("")
-        if existsFile(fortuneFilePath):
+        if fileExists(fortuneFilePath):
           result.add(newFortuneFile(fortuneFilePath, file))
     
     else:
